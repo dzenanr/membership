@@ -65,7 +65,7 @@ class MemberFindChangeDelete extends MemberAdd {
         member.firstName = firstName.value;
         member.lastName = lastName.value;
         message.text = 'changed';
-        members.order();
+        members.order(); // see class Member for observable
       }
     } else {
       message.text = 'first find a member';
