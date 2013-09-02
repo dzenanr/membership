@@ -3,19 +3,23 @@ import 'dart:html';
 import 'package:membership/membership.dart';
 import 'package:web_ui/web_ui.dart';
 
-class MemberSignIn extends WebComponent {
+class MemberSignin extends WebComponent {
   Members members;
-  Member signedInMember;
-  
-  bool showSignIn = true;
-  bool showSignUp = false;
+  @observable
+  Member signedinMember;
+  @observable
+  bool showSignin = true;
+  @observable
+  bool showSignup = false;
+  @observable
   bool showMember = false;
-  bool showSignOut = false;
+  @observable
+  bool showSignout = false;
 
-  signIn() {
-    InputElement code = query("#sign-in-code");
-    InputElement password = query("#sign-in-password");
-    LabelElement message = query("#sign-in-message");
+  signin() {
+    InputElement code = query("#signin-code");
+    InputElement password = query("#signin-password");
+    LabelElement message = query("#signin-message");
     message.text = '';
     var error = false;
     if (code.value.trim() == '') {
@@ -30,10 +34,10 @@ class MemberSignIn extends WebComponent {
       var member = members.find(code.value.trim());
       if (member != null) {
         if (member.password == password.value.trim()) {
-          signedInMember = member;
-          showSignIn = false;
-          showSignUp = false;
-          showSignOut = true;
+          signedinMember = member;
+          showSignin = false;
+          showSignup = false;
+          showSignout = true;
         } else {
           message.text = 'not valid sign in';
         }
@@ -43,21 +47,21 @@ class MemberSignIn extends WebComponent {
     }
   }
 
-  signUp() {
-    LabelElement message = query("#sign-in-message");
+  signup() {
+    LabelElement message = query("#signin-message");
     message.text = '';
-    showSignUp = true;
+    showSignup = true;
   }
 
   member() {
     showMember = true;
   }
 
-  signOut() {
-    signedInMember = null;
-    showSignIn = true;
-    showSignUp = false;
+  signout() {
+    signedinMember = null;
+    showSignin = true;
+    showSignup = false;
     showMember = false;
-    showSignOut = false;
+    showSignout = false;
   }
 }
